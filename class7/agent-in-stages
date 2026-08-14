@@ -1,0 +1,21 @@
+pipeline{
+    agent none
+    stages{
+        stage('print hello world'){
+            agent {
+                 label 'prod' 
+            }
+            steps{
+                echo "This stage will run in node1"
+            }
+        }
+        stage('print hello '){
+            agent any
+            steps{
+                echo "This stage will run in node2"
+            }
+        }
+    }
+}
+
+## CHECK RECORDING on 14 aug from 10:05 pm to 10:17 pm
