@@ -1,0 +1,37 @@
+pipeline{
+    agent any
+    parameters {
+        choice(
+            name: 'Environment',
+            choices: ['dev', 'prod', 'qa'],
+            description: 'Select deployment enviroment'
+            )
+        string(
+            name: 'APP_VERSION',
+            description: 'select the app version'
+            )
+        booleanParam(
+            name: 'RUN_TESTS',
+            description: 'Run automated test?'
+            )
+    }
+    stages{
+        stage('environment check'){
+            steps{
+                echo "hello this is ${params.Environment}"
+                echo "the app version is ${params.APP_VERSION}"
+                echo "Run test : ${params.RUN_TESTS}"
+            }
+        }
+        stage("run test cases"){
+            when {
+                expression {
+                    params.RUN_TESTS ==  true
+                }
+            }
+            steps {
+                echo "running the job because the run test is true"
+            }
+        }
+    }
+}
